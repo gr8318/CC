@@ -6,14 +6,15 @@ def findsum(a,b): return a+b
 
 mode=input("Run as (s=server / c=client): ")
 
-if mode=='s':  # Run server
+if mode=='s':
     s=SimpleJSONRPCServer(('localhost',1006))
     s.register_function(findsum)
     print("Server running..."); s.serve_forever()
 
-else:          # Run client
+else:
     c=Server('http://localhost:1006')
     print("Result:",c.findsum(500,200))
+
 
 #Step 1: Install the Libraries like jsonrpclib in terminal (pip install jsonrpclib)
 #Step 2: Run the program in the visual studio code
