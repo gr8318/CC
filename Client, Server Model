@@ -1,0 +1,24 @@
+# JSON-RPC Server + Client Combined
+from jsonrpclib.SimpleJSONRPCServer import SimpleJSONRPCServer
+from jsonrpclib import Server
+
+def findsum(a,b): return a+b
+
+mode=input("Run as (s=server / c=client): ")
+
+if mode=='s':  # Run server
+    s=SimpleJSONRPCServer(('localhost',1006))
+    s.register_function(findsum)
+    print("Server running..."); s.serve_forever()
+
+else:          # Run client
+    c=Server('http://localhost:1006')
+    print("Result:",c.findsum(500,200))
+
+#Step 1: Install the Libraries like jsonrpclib in terminal (pip install jsonrpclib)
+#Step 2: Run the program in the visual studio code
+#Step 3: It will ask the which model need to run first, click the server model(s)
+#Step 4: It will say that Server running
+#Step 5: Now in the visual code click the options near the Run program there you will see the "Run Python File in Dedicated Terminal"
+#Step 6: Again it will ask which model need to run click the client model(c)
+#Step 7: Now the output will be shown like 700
