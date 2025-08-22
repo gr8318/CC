@@ -1,0 +1,16 @@
+#bankers algorithm Simplified
+def is_safe(alloc,max_r,avail):
+    np,nr=len(alloc),len(avail)
+    work,finish,seq=avail[:],[0]*np,[]
+    for _ in range(np):
+        for p in range(np):
+            need=[max_r[p][i]-alloc[p][i] for i in range(nr)]
+            if not finish[p] and all(work[i]>=need[i] for i in range(nr)):
+                work=[work[i]+alloc[p][i] for i in range(nr)]
+                seq.append(p); finish[p]=1; break
+    print("Safe Sequence:",seq) if all(finish) else print("Unsafe state")
+
+alloc=[[0,1,0],[2,0,0],[3,0,2],[2,1,1],[0,0,2]]
+max_r=[[7,5,3],[3,2,2],[9,0,2],[2,2,2],[9,3,3]]
+avail=[3,3,2]
+is_safe(alloc,max_r,avail)
