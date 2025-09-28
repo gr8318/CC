@@ -1,0 +1,20 @@
+#Map Reduce Simplified
+import threading
+
+data = ["hello world", "hello again", "hello world again"]
+mapped, lock = [], threading.Lock()
+
+def map_function(text):
+    with lock: mapped.extend([(w, 1) for w in text.split()])
+
+# Map phase
+threads = [threading.Thread(target=map_function, args=(line,)) for line in data]
+[t.start() for t in threads]
+[t.join() for t in threads]
+print("Mapped Output:", mapped)
+
+# Shuffle & Reduce
+shuffle = {}
+for w, c in mapped: shuffle.setdefault(w, []).append(c)
+reduced = {w: sum(c) for w, c in shuffle.items()}
+print("Reduced Output:", reduced)
